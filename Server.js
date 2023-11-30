@@ -8,7 +8,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://cards-hq-sell-form-kmvxk0js9-notswizz.vercel.app',
+  origin: 'https://cards-hq-sell-form.vercel.app/',
 };
 
 
