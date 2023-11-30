@@ -51,8 +51,9 @@ function CollectionForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
     try {
-      const response = await fetch('http://localhost:3001/submit-form', {
+      const response = await fetch(`${apiBaseUrl}/submit-form`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

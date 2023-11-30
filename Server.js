@@ -13,7 +13,7 @@ const client = new MongoClient(uri);
 app.post('/submit-form', async (req, res) => {
   try {
     await client.connect();
-    const collection = client.db("yourDatabaseName").collection("yourCollectionName");
+    const collection = client.db("Cards HQ Sell Form").collection("Sellers");
     await collection.insertOne(req.body);
     res.status(200).send('Data saved to MongoDB');
   } catch (error) {
