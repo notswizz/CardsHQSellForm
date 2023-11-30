@@ -18,40 +18,74 @@ body {
 }
 
 /* Form Styles */
-form {
+.collection-form {
   background: #1c1c1c; /* Dark background for form to match the theme */
-  max-width: 600px;
+  max-width: 700px;
   margin: 40px auto;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form label {
+.collection-form label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: #fff; /* White label text to match the theme */
 }
 
-form input[type="text"],
-form input[type="email"],
-form textarea,
-form input[type="file"] {
+.collection-form input[type="text"],
+.collection-form input[type="email"],
+.collection-form textarea,
+.collection-form input[type="file"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   border: 1px solid #333;
   background-color: #333; /* Dark input background */
   color: #fff; /* White input text */
   border-radius: 4px;
 }
 
-form input[type="checkbox"],
-form input[type="radio"] {
-  margin-right: 10px;
+/* Adjustments for React Select */
+.collection-form .basic-multi-select,
+.collection-form .select__control {
+  margin-bottom: 15px;
+  background-color: #333; /* Dark background to match inputs */
+  border: 1px solid #333;
+  color: #fff;
 }
 
-form button {
+/* React Select Dropdown Indicator */
+.collection-form .select__dropdown-indicator {
+  color: #fff;
+}
+
+/* React Select Multi-value Labels */
+.collection-form .select__multi-value__label {
+  background-color: #0056b3; /* Bright blue background for selected options */
+}
+
+/* React Select Menu */
+.collection-form .select__menu {
+  background-color: #333; /* Dark background for options menu */
+  color: #fff;
+}
+
+/* React Select Option */
+.collection-form .select__option {
+  background-color: #333;
+  color: #fff;
+}
+
+.collection-form .select__option--is-focused {
+  background-color: #0056b3;
+}
+
+.collection-form .select__option--is-selected {
+  background-color: #004494;
+}
+
+.collection-form button {
   background: #0056b3; /* Bright blue background for buttons */
   color: #ffffff;
   border: none;
@@ -61,16 +95,8 @@ form button {
   transition: background 0.3s ease;
 }
 
-form button:hover {
+.collection-form button:hover {
   background: #004494;
-}
-
-/* Selected Checkbox Styles */
-.selected-label {
-  background-color: #0056b3; /* Bright blue background for selected checkboxes */
-  color: #ffffff;
-  padding: 5px;
-  border-radius: 4px;
 }
 
 /* Responsive adjustments */
@@ -78,28 +104,4 @@ form button:hover {
   .App-logo {
     width: 150px;
   }
-}
-
-/* Adjust checkbox layout */
-.checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* Spread out the checkboxes */
-  gap: 10px;
-}
-
-.checkbox-row {
-  flex-basis: calc(33.333% - 10px); /* Three items per row with spacing */
-  display: flex;
-  align-items: center;
-}
-
-/* Checkbox and label inline */
-.checkbox-row label {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-row input[type="checkbox"] {
-  margin-right: 5px;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 function CollectionForm() {
   const [formData, setFormData] = useState({
@@ -7,103 +8,116 @@ function CollectionForm() {
     location: '',
     collectionType: [],
     collectionCategory: [],
-    itemCount: '',
     description: '',
     askingPrice: '',
-    images: null,
+    images: []
   });
 
+  // Options for the React Select component
+  const collectionTypeOptions = [
+    { value: 'ultra-modern', label: 'Ultra Modern (2017-Present)' },
+    { value: 'modern', label: 'Modern (2000-2017)' },
+    { value: 'junk-era', label: 'Junk Era (1980-1999)' },
+    { value: 'vintage', label: 'Vintage (1940-1979)' },
+    { value: 'pre-war', label: 'Pre-War (1939 and Older)' },
+    { value: 'sealed-product', label: 'Sealed Product' },
+  ];
+
+  const collectionCategoryOptions = [
+    { value: 'baseball', label: 'Baseball' },
+    { value: 'basketball', label: 'Basketball' },
+    { value: 'football', label: 'Football' },
+    // Add more options as needed
+  ];
+
   const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    
-    if (type === "checkbox") {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        [name]: checked ? 
-          [...prevFormData[name], value] : 
-          prevFormData[name].filter(item => item !== value)
-      }));
-    } else if (type === "file") {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        images: event.target.files
-      }));
+    const { name, value, files } = event.target;
+    if (name === 'images') {
+      setFormData({ ...formData, [name]: files });
     } else {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        [name]: value
-      }));
+      setFormData({ ...formData, [name]: value });
     }
   };
 
-  const isChecked = (name, value) => {
-    return formData[name].includes(value);
+  const handleSelectChange = (selectedOption, { name }) => {
+    setFormData({ ...formData, [name]: selectedOption });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // TODO: Submit formData to your backend or service
     console.log(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Name" />
-      <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" />
-      <input type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="Location" />
-
-      <div className="checkbox-group">
-        <label>What best describes your collection? (Check all that apply)</label>
-        <div className="checkbox-row">
-          <label className={isChecked('collectionType', 'Ultra Modern') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Ultra Modern" onChange={handleInputChange} />
-            Ultra Modern
-          </label>
-          <label className={isChecked('collectionType', 'Modern') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Modern" onChange={handleInputChange} />
-            Modern
-          </label>
-          <label className={isChecked('collectionType', 'Junk Era') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Junk Era" onChange={handleInputChange} />
-            Junk Era
-          </label>
-          <label className={isChecked('collectionType', 'Vintage') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Vintage" onChange={handleInputChange} />
-            Vintage
-          </label>
-          <label className={isChecked('collectionType', 'Pre-War') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Pre-War" onChange={handleInputChange} />
-            Pre-War
-          </label>
-          <label className={isChecked('collectionType', 'Sealed Product') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionType" value="Sealed Product" onChange={handleInputChange} />
-            Sealed Product
-          </label>
-        </div>
-      </div>
-
-      <div className="checkbox-group">
-        <label>What category best describes your collection? (Check all that apply)</label>
-        <div className="checkbox-row">
-          <label className={isChecked('collectionCategory', 'Baseball') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionCategory" value="Baseball" onChange={handleInputChange} />
-            Baseball
-          </label>
-          <label className={isChecked('collectionCategory', 'Basketball') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionCategory" value="Basketball" onChange={handleInputChange} />
-            Basketball
-          </label>
-          <label className={isChecked('collectionCategory', 'Football') ? 'selected-label' : ''}>
-            <input type="checkbox" name="collectionCategory" value="Football" onChange={handleInputChange} />
-            Football
-          </label>
-          {/* Add more checkboxes for other categories in the same pattern */}
-        </div>
-      </div>
-
-      <textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Please list or briefly explain what you have for sale." />
-      <input type="file" name="images" onChange={handleInputChange} multiple />
-      <input type="text" name="askingPrice" value={formData.askingPrice} onChange={handleInputChange} placeholder="Asking Price" />
-      <button type="submit">Submit</button>
+    <form onSubmit={handleSubmit} className="collection-form">
+      <input
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        placeholder="Name"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
+        placeholder="Email"
+        required
+      />
+      <input
+        type="text"
+        name="location"
+        value={formData.location}
+        onChange={handleInputChange}
+        placeholder="Location"
+        required
+      />
+      <Select
+        isMulti
+        name="collectionType"
+        options={collectionTypeOptions}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        onChange={handleSelectChange}
+        placeholder="What best describes your collection?"
+        value={formData.collectionType}
+      />
+      <Select
+        isMulti
+        name="collectionCategory"
+        options={collectionCategoryOptions}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        onChange={handleSelectChange}
+        placeholder="What category best describes your collection?"
+        value={formData.collectionCategory}
+      />
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleInputChange}
+        placeholder="Please list or briefly explain what you have for sale."
+        required
+      />
+      <input
+        type="text"
+        name="askingPrice"
+        value={formData.askingPrice}
+        onChange={handleInputChange}
+        placeholder="Asking Price"
+        required
+      />
+      <input
+        type="file"
+        name="images"
+        onChange={handleInputChange}
+        multiple
+        accept="image/*"
+      />
+      <button type="submit" className="submit-button">Submit</button>
     </form>
   );
 }
