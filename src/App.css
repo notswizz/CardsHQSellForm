@@ -14,7 +14,7 @@ body {
 /* Assuming the logo image is named 'cardshq.png' in your directory */
 .App-logo {
   width: 250px; /* Adjust according to your layout */
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Form Styles */
@@ -83,6 +83,7 @@ body {
 
 .collection-form .select__option--is-selected {
   background-color: #004494;
+  color: white;
 }
 
 .collection-form button {
@@ -96,7 +97,7 @@ body {
 }
 
 .collection-form button:hover {
-  background: #004494;
+  background: rgb(10, 209, 40)148, 0);
 }
 
 /* Responsive adjustments */

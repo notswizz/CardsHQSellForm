@@ -27,6 +27,12 @@ function CollectionForm() {
     { value: 'baseball', label: 'Baseball' },
     { value: 'basketball', label: 'Basketball' },
     { value: 'football', label: 'Football' },
+    { value: 'soccer', label: 'Soccer' },
+    { value: 'pokemon', label: 'Pokemon' },
+    { value: 'magic', label: 'Magic' },
+    { value: 'pop culture', label: 'Pop Culture' },
+    { value: 'UFC', label: 'UFC' },
+    { value: 'F1', label: 'F1' },
     // Add more options as needed
   ];
 
@@ -43,12 +49,26 @@ function CollectionForm() {
     setFormData({ ...formData, [name]: selectedOption });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // TODO: Submit formData to your backend or service
-    console.log(formData);
+    try {
+      const response = await fetch('http://localhost:3001/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        console.log('Data sent to server');
+      } else {
+        console.error('Failed to send data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
+  
   return (
     <form onSubmit={handleSubmit} className="collection-form">
       <input
