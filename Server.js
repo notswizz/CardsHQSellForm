@@ -8,9 +8,9 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000', // Your React app's URL in production or localhost for development
-  optionsSuccessStatus: 200
+  origin: 'https://cards-hq-sell-form-kmvxk0js9-notswizz.vercel.app',
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
