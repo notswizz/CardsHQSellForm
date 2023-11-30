@@ -8,7 +8,10 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://cards-hq-sell-form.vercel.app/',
+  origin: 'https://cards-hq-sell-form.vercel.app', // Your front-end application URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
 };
 
 
