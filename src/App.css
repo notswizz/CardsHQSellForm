@@ -1,38 +1,105 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000; /* Black background to match the theme */
+  color: #fff; /* White text color */
+  line-height: 1.6;
+}
+
 .App {
   text-align: center;
+  padding: 20px;
 }
 
+/* Assuming the logo image is named 'cardshq.png' in your directory */
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  width: 250px; /* Adjust according to your layout */
+  margin-bottom: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* Form Styles */
+form {
+  background: #1c1c1c; /* Dark background for form to match the theme */
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff; /* White label text to match the theme */
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea,
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #333;
+  background-color: #333; /* Dark input background */
+  color: #fff; /* White input text */
+  border-radius: 4px;
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+  margin-right: 10px;
+}
+
+form button {
+  background: #0056b3; /* Bright blue background for buttons */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #004494;
+}
+
+/* Selected Checkbox Styles */
+.selected-label {
+  background-color: #0056b3; /* Bright blue background for selected checkboxes */
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    width: 150px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Adjust checkbox layout */
+.checkbox-group {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Spread out the checkboxes */
+  gap: 10px;
+}
+
+.checkbox-row {
+  flex-basis: calc(33.333% - 10px); /* Three items per row with spacing */
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Checkbox and label inline */
+.checkbox-row label {
+  display: flex;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.checkbox-row input[type="checkbox"] {
+  margin-right: 5px;
 }
