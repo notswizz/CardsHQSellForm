@@ -1,28 +1,48 @@
+require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
-app.use(cors());
+
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000', // Your React app's URL in production or localhost for development
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
-const uri = "mongodb+srv://notswizz:Jakal207@cluster0.jeaux62.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
+const uri = process.env.MONGODB_URI; // MongoDB URI from environment variables
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Define routes
+// Database and Collection names
+const dbName = "Cards HQ Sell Form";
+const collectionName = "Sellers";
+
 app.post('/submit-form', async (req, res) => {
   try {
     await client.connect();
-    const collection = client.db("Cards HQ Sell Form").collection("Sellers");
+    const collection = client.db(dbName).collection(collectionName);
     await collection.insertOne(req.body);
     res.status(200).send('Data saved to MongoDB');
   } catch (error) {
-    console.error(error);
+    console.error('Error in /submit-form route:', error);
     res.status(500).send('Error saving data');
   } finally {
     await client.close();
   }
 });
+
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
